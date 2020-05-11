@@ -13,19 +13,26 @@ public class Main {
 
         System.out.print("Enter your loan interest: ");
         calculator.interestRate = (int) scanner.nextDouble();
-        int loanInterest = calculator.interestRate;
+        double loanInterest = calculator.interestRate;
 
         System.out.print("Enter amount of years: ");
         calculator.numOfPayments = scanner.nextShort();
-        int amountOfYears = calculator.numOfPayments;
+        short amountOfYears = (short) calculator.numOfPayments;
 
-        loanInterest = (loanInterest / 100) / 12;
+        double rawLoanInterest = (loanInterest / 100) / 12;
+        loanInterest = 1 + ((loanInterest / 100) / 12);
         amountOfYears *= 12;
+        double exponent = Math.pow(loanInterest, amountOfYears);
 
-        int monthlyPayment = loanAmount * ((loanInterest * ((1 + loanInterest) * amountOfYears)) /
-                ((1 + loanInterest) * amountOfYears) - 1);
+
+
+        double monthlyPayment = loanAmount * ((rawLoanInterest * exponent) /
+                                (exponent - 1));
+
+
 
         System.out.println(monthlyPayment);
+
 
     }
 }
